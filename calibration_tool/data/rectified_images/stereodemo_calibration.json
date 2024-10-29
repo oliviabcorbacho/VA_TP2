@@ -1,0 +1,12 @@
+{
+    "width": 1920,
+    "height": 1080,
+    "baseline_meters": 0.06,
+    "fx": 600,
+    "fy": 600,
+    "cx0": 960,
+    "cx1": 960,
+    "cy": 540,
+    "depth_range": [0.05, 20.0],
+    "left_image_rect_normalized": [0, 0, 1, 1]
+}
