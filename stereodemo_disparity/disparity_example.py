@@ -4,21 +4,31 @@ import numpy as np
 from pathlib import Path
 
 from stereodemo.method_cre_stereo import CREStereo
+print("Importing modules...")
 from stereodemo.method_opencv_bm import StereoBM, StereoSGBM
 from stereodemo.methods import Calibration, InputPair, Config
+
+
+
+
 
 models_path = Path.home() / ".cache" / "stereodemo" / "models"
 
 
-calibration_file = "recursos/tune_disparity/stereodemo_calibration.json"
+calibration_file = "/Users/brunocr/Desktop/UDESA/Visión Artificial/TP2_Reconstruccion3D/VA_TP2/calibration_tool/data/rectified_images/stereodemo_calibration.json"
+
+print("Computing disparity...")
+
 with open(calibration_file, "r") as f:
     calibration = Calibration.from_json(f.read())
 
-left_image = cv2.imread("recursos/tune_disparity/left_10.jpg")
-right_image = cv2.imread("recursos/tune_disparity/right_10.jpg")
+left_image = cv2.imread("/Users/brunocr/Desktop/UDESA/Visión Artificial/TP2_Reconstruccion3D/VA_TP2/calibration_tool/data/rectified_images/rectified_left_5.png")
+right_image = cv2.imread("/Users/brunocr/Desktop/UDESA/Visión Artificial/TP2_Reconstruccion3D/VA_TP2/calibration_tool/data/rectified_images/rectified_right_5.png")
 
 pair = InputPair(left_image, right_image, calibration, "status?")
 config = Config(models_path=models_path)
+
+
 
 method = CREStereo(config)
 # method = StereoBM(config)
