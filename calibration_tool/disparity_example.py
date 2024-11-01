@@ -3,9 +3,9 @@ import json
 import numpy as np
 from pathlib import Path
 
-from stereodemo.method_cre_stereo import CREStereo
-from stereodemo.method_opencv_bm import StereoBM, StereoSGBM
-from stereodemo.methods import Calibration, InputPair, Config
+from ..stereodemo.method_cre_stereo import CREStereo
+from ..stereodemo.method_opencv_bm import StereoBM, StereoSGBM
+from ..stereodemo.methods import Calibration, InputPair, Config
 
 
 
@@ -32,8 +32,8 @@ def create_disparity_map(left_image, right_image, pair_number, calibration_file,
     disparity = method.compute_disparity(pair)
 
     if save:
-        np.savez(f'mapas_disparidad/disparity_{pair_number}.npz', disparity.disparity_pixels)
-        cv2.imwrite(f"mapas_disparidad/disparity_{pair_number}.png", disparity.disparity_pixels)
+        np.savez(f'../mapas_disparidad/disparity_{pair_number}.npz', disparity.disparity_pixels)
+        cv2.imwrite(f"../mapas_disparidad/disparity_{pair_number}.png", disparity.disparity_pixels)
 
     if show:
         dvis = disparity.disparity_pixels.copy()

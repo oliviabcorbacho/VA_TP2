@@ -1,10 +1,10 @@
 import cv2
 import numpy as np
-import utils
+from . import utils
 import platform
 import time
 
-from threaded_capture import ThreadedCapture
+from .threaded_capture import ThreadedCapture
 
 DEFAULT_VIDEO_DEVICE = 2
 # DEFAULT_VIDEO_DEVICE = "/dev/video3"
@@ -36,8 +36,6 @@ SUPPORTED_RESOLUTIONS = {
 # depende cómo lo maneja el sistema operativo.
 # - puede ser un número, en ese caso probamos 0, 1, 2...
 # - en linux es un archivo que está en /dev/video*
-
-
 
 
 def new_video_capture(device, resolution):

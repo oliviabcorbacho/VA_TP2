@@ -6,8 +6,8 @@ import os
 import sys
 
 def initiation(path1, path2, pklpath):
-    image_path_left = 'data/captures/left_3.jpg'
-    image_path_right = 'data/captures/left_3.jpg'
+    image_path_left = os.path.join('data', 'captures', 'left_3.jpg')
+    image_path_right = os.path.join('data', 'captures', 'left_3.jpg')
     #read images as rgb
 
     imgL = cv.imread(image_path_left)
@@ -56,8 +56,8 @@ def show_rectified_images(left_image, right_image, stereo_maps, save_path=None, 
         # Create directory if it does not exist
         if not os.path.exists(save_path):
             os.makedirs(save_path)
-        left_rectified_path = f"{save_path}/{n_image}_left.png"
-        right_rectified_path = f"{save_path}/{n_image}_right.png"
+        left_rectified_path = os.path.join(save_path, f"{n_image}_left.png")
+        right_rectified_path = os.path.join(save_path, f"{n_image}_right.png")
         cv.imwrite(left_rectified_path, left_rectified)
         cv.imwrite(right_rectified_path, right_rectified)
         print(f"Rectified images saved to {save_path}")  
@@ -66,11 +66,11 @@ def show_rectified_images(left_image, right_image, stereo_maps, save_path=None, 
 def save_imgs(mat_dict):
     # Bucle para guardar todas las imágenes rectificadas
     for i in range(0, 6):
-        image_path_left = f'data/captures/left_{i}.jpg'
-        image_path_right = f'data/captures/right_{i}.jpg'
+        image_path_left = os.path.join('data', 'captures', f'left_{i}.jpg')
+        image_path_right = os.path.join('data', 'captures', f'right_{i}.jpg')
         # Leer imágenes como RGB
         imgL = cv.imread(image_path_left, 0)
         imgR = cv.imread(image_path_right, 0)
-        show_rectified_images(imgL, imgR, mat_dict, save_path='data/rectified_images', n_image=i, plot_images=False)
+        show_rectified_images(imgL, imgR, mat_dict, save_path=os.path.join('data', 'rectified_images'), n_image=i, plot_images=False)
         print(f"Rectified images {i} saved")
     print("All images saved")

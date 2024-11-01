@@ -3,11 +3,11 @@ import os
 import glob
 import cv2
 import numpy as np
-import calib
 import pickle
 
-from threaded_capture import ThreadedCapture
-import stereo_camera
+from .threaded_capture import ThreadedCapture
+from . import stereo_camera
+from . import calib
 
 
 def parse_checkerboard(checkerboard):
