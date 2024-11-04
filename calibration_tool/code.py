@@ -124,9 +124,14 @@ def generate_centered_pcd(disparity_map, left_image, Q_mat, left_K, left_distort
     # Convert back to 3D by dropping the homogeneous coordinate
     points_transformed = points_transformed_homogeneous[:, :3]
 
+    # Get colors from the left image
+    colors = cv.cvtColor(left_image[mask], cv.COLOR_BGR2RGB).reshape(-1,3) / 255.0
+    colors = colors[:, [2,1,0]]
+
     # Visualize with Open3D
     pcd = o3d.geometry.PointCloud()
     pcd.points = o3d.utility.Vector3dVector(points_transformed)
+    pcd.colors = o3d.utility.Vector3dVector(colors)
 
     # Optionally, add coordinate frames for context
     world_center = np.array([0, 0, 0])  # Center at the world origin
@@ -139,9 +144,9 @@ def generate_centered_pcd(disparity_map, left_image, Q_mat, left_K, left_distort
     indices = bounding_box.get_point_indices_within_bounding_box(pcd.points)
     pcd_filtered = pcd.select_by_index(indices)
 
-    pcd_final, ind = pcd_filtered.remove_statistical_outlier(nb_neighbors=nbn, std_ratio=std_ratio)
+    pcd_wo_outliers, ind = pcd_filtered.remove_statistical_outlier(nb_neighbors=nbn, std_ratio=std_ratio)
 
-    return (pcd_final, camera_frame)
+    return (pcd_wo_outliers, camera_frame)
 
 def pcd(mat_dict, stereo_calib):
     pcd_camera_tuples = []
